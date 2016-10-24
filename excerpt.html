@@ -1,423 +1,414 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>有漾书摘</title>
-    <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap-theme.min.css">
-    <style>
-        body, #book-placeholder .info-container{
-            background-color:#f3f3f3;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>有漾儿阅读</title>
+  <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap-theme.min.css">
+  <style>
+    body, #book-placeholder .info-container {
+      background-color: #f3f3f3;
+    }
+    a:hover{text-decoration: none;}
 
-        .download-container{
-            height:64px;
-            background-color:#ffffff;
-            font-size:13px;
-            border-bottom:1px solid #dfdfdf;
-        }
+    .download-container {
 
-        .download-container img{
-            width:36px;
-            height:36px;
-            margin:14px;
-            border-radius:5px;
+      display: block;
+      height: 64px;
+      line-height: 64px;
+      background-color: #ffffff;
+      font-size: 13px;
+      border-bottom: 1px solid #dfdfdf;
+    }
 
-        }
+    .download-container img {
+      width: 36px;
+      height: 36px;
+      margin: 14px;
+      border: 0px;
 
-        .download-container input{
-            display:inline-block;
-            float:right;
-            margin:16px 14px;
-            width:75px;
-            height:28px;
-            background-color:#3a3f48;
-            border:0px;
-            color:#ffffff;
-            border-radius:5px;
-            font-size:13px;
-            padding:0;
-            line-height:28px;
-        }
+    }
+    .download-container span{
+      display: inline-block;
+      height:64px;
+      line-height: 64px;
+    }
+    .download-container input {
+      display: inline-block;
+      float: right;
+      margin: 18px 14px;
+      width: 75px;
+      height: 28px;
+      background-color: #fe6000;
+      border: 0px;
+      color: #ffffff;
+      border-radius: 5px;
+      font-size: 13px;
+      padding: 0;
+      line-height: 28px;
+    }
 
-        #book-placeholder, #excerpt-list{
-            background-color:#ffffff;
-        }
+    #book-placeholder, #excerpt-list {
+      background-color: #ffffff;
+    }
 
-        /*#book-placeholder .left-container{*/
-        /*width:80px;*/
-        /*height:80px;*/
-        /*float:left;*/
-        /*}*/
+    /*#book-placeholder .left-container{*/
+    /*width:80px;*/
+    /*height:80px;*/
+    /*float:left;*/
+    /*}*/
 
-        /*#book-placeholder .right-container{*/
-        /*width:200px;*/
-        /*float:right;*/
-        /*}*/
+    /*#book-placeholder .right-container{*/
+    /*width:200px;*/
+    /*float:right;*/
+    /*}*/
 
-        .excerpt-list{
-            display:block;
-            margin:0;
-        }
+    .excerpt-list {
+      display: block;
+      margin: 0;
+    }
 
-        .excerpt-list li{
+    .excerpt-list li {
 
-            padding-top:18px;
-            padding-bottom:12px;
-        }
+      padding-top: 18px;
+      padding-bottom: 12px;
+    }
 
-        .custom-hidden{
-            display:-webkit-box;
-            text-overflow:ellipsis;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            display:-webkit-box;
-            -webkit-line-clamp:2;
-            -webkit-box-orient:vertical;
-            margin-right:14px;
-            margin-bottom:16px;
-            position:absolute;
-            bottom:0;
-            left:90px;
-        }
+    .custom-hidden {
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      margin-right: 14px;
+      margin-bottom: 16px;
+      position: absolute;
+      bottom: 0;
+      left: 90px;
+    }
 
-        #book-placeholder .info-container figure{
-            display:block;
-            float:left;
-        }
+    #book-placeholder .info-container figure {
+      display: block;
+      float: left;
+    }
 
-        #book-placeholder .info-container figure img{
-            width:66px;
-            height:90px;
-            margin:16px 14px;
-            background-color:#e5e5e5;
-        }
+    #book-placeholder .info-container figure img {
+      width: 66px;
+      height: 90px;
+      margin: 16px 14px;
+      background-color: #e5e5e5;
+    }
 
-        #book-placeholder .info-container section{
-            min-height:122px;
-            position:relative;
-        }
+    #book-placeholder .info-container section {
+      min-height: 122px;
+      position: relative;
+    }
 
-        #book-name{
-            font-size:16px;
-            color:#131313;
-            padding:16px 14px 0 0;
-            margin-bottom:0px;
-            line-height:16px;
-            display:-webkit-box;
-            text-overflow:ellipsis;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            display:-webkit-box;
-            -webkit-line-clamp:1;
-            -webkit-box-orient:vertical;
-        }
+    #book-name {
+      font-size: 16px;
+      color: #131313;
+      padding: 16px 14px 0 0;
+      margin-bottom: 0px;
+      line-height: 16px;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
 
-        #author{
-            font-size:11px;
-            color:#999999;
-            line-height:13px;
-            padding:7px 14px 0 0;
-            display:-webkit-box;
-            text-overflow:ellipsis;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            display:-webkit-box;
-            -webkit-line-clamp:1;
-            -webkit-box-orient:vertical;
-        }
+    #author {
+      font-size: 11px;
+      color: #999999;
+      line-height: 13px;
+      padding: 7px 14px 0 0;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
 
-        .head-img{
-            display:inline-block;
-            width:29px;
-            height:29px;
-            overflow:hidden;
-            border:0px;
-            border-radius:15px;
-            float:left;
-        }
+    .head-img {
+      display: block;
+      width: 29px;
+      height: 29px;
+      overflow: hidden;
+      border: 0px;
+      border-radius: 15px;
+      float: left;
+      margin-right: 7px;
+    }
 
-        .head-img img{
-            width:29px;
-            height:29px;
-            background-color:#e5e5e5;
-            border:0px solid #e5e5e5;
-        }
+    .head-img img {
+      width: 29px;
+      height: 29px;
+      background-color: #e5e5e5;
+      border: 0px solid #e5e5e5;
+    }
 
-        .excerpt-author{
-            width:200px;
-            margin-left:7px;
-            display:inline-block;
-            font-size:12px;
-            height:12px;
-            margin-bottom:4px;
-            color:#131313;
-        }
+    .excerpt-author {
+      width: 200px;
+      display: block;
+      font-size: 12px;
+      height: 12px;
+      margin-bottom: 4px;
+      color: #131313;
+      line-height: 12px;
+    }
 
-        .create-date{
-            margin-left:7px;
-            display:inline-block;
-            height:10px;
-            font-size:10px;
-            color:#999999;
-            float:right;
-        }
+    .create-date {
+      display: block;
+      height: 10px;
+      font-size: 10px;
+      color: #999999;
+    }
 
-        #open-app-container{
-            position:fixed;
-            bottom:0;
-            width:100%;
-            z-index:9;
-            height:57px;
+    #open-app-container {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 9;
+      height: 57px;
+      background-color: #f3f3f3;
 
-        }
+    }
 
-        #open-app-container a{
-            display:inline-block;
-            width:280px;
-            height:31px;
-            line-height:31px;
-            font-size:13px;
-            margin:13px auto;
-            border-radius:16px;
-            background-color:#4e86e2;
-            color:#ffffff;
+    #open-app-container a {
+      display: inline-block;
+      width: 280px;
+      height: 31px;
+      line-height: 31px;
+      font-size: 13px;
+      margin: 13px auto;
+      border-radius: 16px;
+      background-color: #fe6000;
+      color: #ffffff;
 
-        }
+    }
 
-        .excerpt-content{
-            margin:18px 0 0;
-        }
+    .excerpt-content {
+      margin: 18px 0 0;
+    }
 
-        #comment-placeholder{
-            background-color:#ffffff;
-        }
+    #comment-placeholder {
+      background-color: #ffffff;
+      margin-bottom: 60px;
+    }
 
-        #comment-placeholder li div .comm-author{
-            font-size:12px;
-            color:#4e86e2;
-        }
+    #comment-placeholder li div .comm-author {
+      font-size: 12px;
+      color: #303030;
+      float: left;
+    }
 
-        #comment-placeholder li div .comm-author i{
-            color:#131313;
-            font-style:normal;
-        }
+    #comment-placeholder li div .comm-author i {
+      color: #131313;
+      font-style: normal;
+    }
 
-        #comment-placeholder li div .comm-content{
-            font-size:12px;
-            color:#131313;
-        }
+    #comment-placeholder li div .comm-content {
+      font-size: 12px;
+      color: #131313;
+    }
 
-        .comm-content{
-            display:-webkit-box;
-            text-overflow:ellipsis;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            display:-webkit-box;
-            -webkit-line-clamp:4;
-            -webkit-box-orient:vertical;
-        }
+    .comm-content {
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+    }
 
-        .comm-content{
-            -webkit-line-clamp:3;
-        }
+    .comm-content {
+      -webkit-line-clamp: 3;
+    }
 
-        .comment-list .left-container{
-            width:15%;
-            float:left;
-        }
+    .comment-list {
+      margin-top: 12px;
+    }
 
-        .comment-list .right-container{
-            width:85%;
-            float:right;
-        }
-    </style>
-    <!--<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
-    <!--<script src="./lib/js/wxshare.js"></script>-->
-    <script>
-        Date.prototype.Format = function (fmt){
-            var o = {
-                "M+":this.getMonth() + 1 ,
-                "d+":this.getDate() ,
-                "h+":this.getHours() ,
-                "m+":this.getMinutes() ,
-                "s+":this.getSeconds() ,
-                "q+":Math.floor((this.getMonth() + 3) / 3) ,
-                "S":this.getMilliseconds()
+    .comment-list .left-container {
+      width: 15%;
+      float: left;
+    }
 
-            };
-            if (/(y+)/.test(fmt))
-                fmt = fmt.replace(RegExp.$1 , (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-            for (var k in o)
-                if (new RegExp("(" + k + ")").test(fmt))
-                    fmt = fmt.replace(RegExp.$1 , (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-            return fmt;
-        };
-        function getUrlParameter(name){
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)" , "i");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return decodeURIComponent(r[2]);
-            return null;
-        }
-        var did = getUrlParameter('excerptid');
-        var bid = '';
-        var sid = getUrlParameter('sharereadid');
-    </script>
+    .comment-list .right-container {
+      width: 85%;
+      float: right;
+    }
+  </style>
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script src="./lib/js/wxshare.js"></script>
+  <script>
+    Date.prototype.Format = function (fmt) {
+      var o = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S": this.getMilliseconds()
+
+      };
+      if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+      for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[ k ]) : (("00" + o[ k ]).substr(("" + o[ k ]).length)));
+      return fmt;
+    };
+    function getUrlParameter (name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return decodeURIComponent(r[ 2 ]);
+      return null;
+    }
+    var did = getUrlParameter('excerptid');
+    var bid = '';
+    var sid = getUrlParameter('shreadid');
+  </script>
 </head>
 <body>
 
-<div class=" download-container"><img src="./lib/images/logo.jpg" alt=""><span>漾</span><input type="button"
-                                                                                              value="点击下载"></div>
+<div class="download-container"><img src="./lib/images/logo.png" alt=""><span>有漾儿阅读</span><input type="button"
+                                                                                                 value="点击下载"></div>
 <div id="excerpt-placeholder">
-    <ul id="excerpt-list" class="excerpt-list  list-unstyled">
+  <ul id="excerpt-list" class="excerpt-list  list-unstyled">
 
-    </ul>
+  </ul>
 </div>
 <div id="book-placeholder" class="container">
-    <div class="info-container">
-        <figure><img id="book-img"></figure>
-        <section><p id="book-name" class="">书名</p>
-            <p id="author" class="">作者</p>
-            <p id="synopsis" class="custom-hidden">SpaceX的行动任务控制中心，马斯克和米勒在此全程监控火箭的发射过程。
-                                                   SpaceX在洛杉矶郊区建立了一座真正的火箭工厂，成功打造出“猎鹰1号”火箭。</p></section>
+  <div class="info-container">
+    <figure><img id="book-img"></figure>
+    <section><p id="book-name" class="">书名</p>
+      <p id="author" class="">作者</p>
+      <p id="synopsis" class="custom-hidden">SpaceX的行动任务控制中心，马斯克和米勒在此全程监控火箭的发射过程。
+        SpaceX在洛杉矶郊区建立了一座真正的火箭工厂，成功打造出“猎鹰1号”火箭。</p></section>
 
-    </div>
-
-
-    <!--<figure class="left-container"><img id="book-img"></figure>-->
-    <!--<div class="right-container">-->
-    <!--<p id="book-name" class="text-left">书名</p>-->
-    <!--<p id="author" class="text-left">作者</p>-->
-    <!--<p id="synopsis" class=" custom-hidden"></p>-->
-    <!--<p class="text-center"><a id="open-book" href="javascript:void(0);">点击展开</a></p>-->
-    <!--</div>-->
+  </div>
 </div>
 <div id="comment-placeholder" class="container">
 
-    <ul id="comment-list" class="comment-list  list-unstyled">
-    </ul>
+  <ul id="comment-list" class="comment-list  list-unstyled">
+  </ul>
 </div>
-<div id="open-app-container" class="text-center"><a id="openApp" href="javascript:void(0);">进入漾,查看更多</a></div>
+<div id="open-app-container" class="text-center"><a id="openApp" href="javascript:void(0);">打开有漾阅读，查看更多</a></div>
 
 <script src="./lib/js/jquery-1.12.3.min.js"></script>
 <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="./lib/js/download.js"></script>
 <script>
-    $(function (){
-//        $('#swiper').on('click',function(){
-//            var $t= $('#synopsis');
-//            if($t.hasClass('custom-hidden'))
-//            {
-//                $t.removeClass('custom-hidden');
-//                $(this).html('点击闭合');
-//            }else{
-//                $t.addClass('custom-hidden');
-//                $(this).html('点击展开');
-//            }
-//
-//        });
-        var data = {body:{did:did , sid:sid}};
-        data = JSON.stringify(data);
-        var requestUrl = 'http://10.31.8.168:8084';
-        //bookid:5505
-        //excerptid:163
+  $(function () {
+    var data = { body: { did: did, sid: sid } };
+    data = JSON.stringify(data);
+    var requestUrl = 'http://rdappsrv.yunpub.cn';
 
-        $.ajax({
-            type:'post' ,
-            url:requestUrl + '/api/share/getSharedExcerptDetail' ,
-            contentType:'application/json;charset=UTF-8' ,
-            data:data ,
-            dataType:'json' ,
-            success:function (r){
-                if (!!r.header && r.header.code == '200') {
-                    formatBookData(r.body);
-                }
-            }
-        });
-        function formatWXShareData(d){
-            var data = {};
-            data.title = '来自《' + d.bookName + '》的书摘';
-            data.imgUrl = decodeURIComponent(d.bookImg);
-            data.desc = d.digest.content;
-            var queryIndex = location.herf.indexOf('?');
-            data.link = location.href.substr(queryIndex , location.herf.length - queryIndex) + '?excerptid=' + did + (!!sid ? '&sharereadid=' + sid : '');
-            initWXShare(data);
+    $.ajax({
+      type: 'post',
+      url: requestUrl + '/api/share/getSharedExcerptDetail',
+      contentType: 'application/json;charset=UTF-8',
+      data: data,
+      dataType: 'json',
+      success: function (r) {
+        if (!!r.header && r.header.code == '200') {
+          formatBookData(r.body);
         }
-
-        function formatBookData(d){
-            bid = d.id;
-            $('#book-img')[0].src = decodeURIComponent(d.bookImg);
-            $('#book-name').html(d.bookName);
-            $('#author').html(d.bookAuth);
-            bid = d.bookId;
-            $('#synopsis').html(d.summary);
-            if (d.digest) {
-                formatExcerptData(d.digest)
-            }
-
-        }
-
-        function formatExcerptData(d){
-            var tmplHtml = '';
-            if (!!d) {
-                tmplHtml += ' <li class="container"><div><span class="head-img">' +
-                        '<img src="' + d.authorPhoto + '" alt=""></span>' +
-                        '<span class="excerpt-author ">' + d.authorName + '</span>' +
-                        '<span class="create-date">' + formatDate(d.time) + '</span></div>' +
-                        '<p class="excerpt-content ">' + d.content + '</p>' +
-                        '</li>';
-            } else {
-                tmplHtml += '<li><h1>暂无书摘</h1></li>';
-            }
-            $('#excerpt-list').html(tmplHtml);
-            if (d.comment) {
-                formatComment(d.comment)
-            }
-        }
-
-        function formatComment(c){
-            var tmplHtml = '';
-            if (c.length > 0) {
-                for (var i = 0 ; i < c.length ; i++) {
-                    var tmplecontent;
-                    tmplHtml += '<li><div><p class="clearfix">' +
-                            '<span class="comm-author ">' + formatContentHtml(c[i].commentOriginAuthorName , c[i].commentAuthorName) + '</span>' +
-                            '<span class="create-date text-right">' + formatDate(c[i].createTime , true) + '</span>' +
-                            '</p><p class="comm-content text-justify">' + c[i].commentContent +
-                            '</p></div></li>'
-                }
-            }
-            $('#comment-list').html(tmplHtml);
-        }
-
-        function formatContentHtml(p , c){
-
-            if (!!p) {
-                return p + '<i>&nbsp;回复&nbsp;</i>' + c
-            } else {
-                return c;
-            }
-        }
-
-        function formatDate(longString , isTime){
-            var timeStr = '';
-            longString = parseInt(longString);
-            var date = new Date(longString);
-
-            var timeStr = ''
-            if (isTime) {
-                timeStr = date.Format('MM.dd hh:mm');
-            } else {
-                timeStr = date.Format('yyyy.MM.dd');
-            }
-            return timeStr
-        }
-
-        $('#openApp').on('click' , openApp);
-        function openApp(){
-            location.href = "Inner://yunpub.com/open?bookid=" + bid + "&excerptid=" + did;
-        }
+      }
     });
+    function formatWXShareData (d) {
+      var data = {};
+      data.title = '来自《' + d.bookName + '》的书摘';
+      data.imgUrl = decodeURIComponent(d.bookImg);
+      data.desc = d.digest.content;
+      var queryIndex = location.href.indexOf('?');
+      data.link = location.href.substr(0, queryIndex) + '?excerptid=' + did + (!!sid ? '&shreadid=' + sid : '');
+      initWXShare(data);
+    }
+
+    function formatBookData (d) {
+      bid = d.id;
+      $('#book-img')[ 0 ].src = decodeURIComponent(d.bookImg);
+      $('#book-name').html(d.bookName);
+      $('#author').html(d.bookAuth);
+      bid = d.bookId;
+      $('#synopsis').html(d.summary);
+      if (d.digest) {
+        formatExcerptData(d.digest)
+      }
+      formatWXShareData(d);
+    }
+
+    function formatExcerptData (d) {
+      var tmplHtml = '';
+      if (!!d) {
+        tmplHtml += ' <li class="container"><div><span class="head-img">' +
+          '<img src="' + decodeURIComponent(d.authorPhoto) + '" alt=""></span>' +
+          '<span class="excerpt-author ">' + d.authorName + '</span>' +
+          '<span class="create-date">' + formatDate(d.time) + '</span></div>' +
+          '<p class="excerpt-content ">' + d.content + '</p>' +
+          '</li>';
+      } else {
+        tmplHtml += '<li><h1>暂无书摘</h1></li>';
+      }
+      $('#excerpt-list').html(tmplHtml);
+      if (d.comment) {
+        formatComment(d.comment)
+      }
+    }
+
+    function formatComment (c) {
+      var tmplHtml = '';
+      if (c.length > 0) {
+        for (var i = 0; i < c.length; i++) {
+          var tmplecontent;
+          tmplHtml += '<li><div><p class="clearfix">' +
+            '<span class="comm-author">' + formatContentHtml(c[ i ].commentOriginAuthorName, c[ i ].commentAuthorName) + '</span>' +
+            '<span class="create-date text-right">' + formatDate(c[ i ].createTime, true) + '</span>' +
+            '</p><p class="comm-content text-justify">' + c[ i ].commentContent +
+            '</p></div></li>'
+        }
+      }
+      $('#comment-list').html(tmplHtml);
+    }
+
+    function formatContentHtml (p, c) {
+
+      if (!!p) {
+        return p + '<i>&nbsp;回复&nbsp;</i>' + c
+      } else {
+        return c;
+      }
+    }
+
+    function formatDate (longString, isTime) {
+      var timeStr = '';
+      longString = parseInt(longString);
+      var date = new Date(longString);
+
+      var timeStr = ''
+      if (isTime) {
+        timeStr = date.Format('MM.dd hh:mm');
+      } else {
+        timeStr = date.Format('yyyy.MM.dd');
+      }
+      return timeStr
+    }
+
+    $('#openApp').on('click', openApp);
+    $('#download-btn').on('click', download);
+
+  });
 </script>
 </body>
 </html>

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,user-scalable=no initial-scale=1 minimum-scale=1 maximum-scale=1">
-    <title>印记读书</title>
+    <title>有漾儿阅读</title>
     <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
     <!--<link rel="stylesheet" href="./lib/bootstrap/css/bootstrap-theme.min.css">-->
     <style>
         body{
             background-color:#f3f3f3;
         }
-
+        a:hover{text-decoration: none;}
         .download-container{
             height:64px;
             background-color:#ffffff;
@@ -22,7 +22,7 @@
             width:36px;
             height:36px;
             margin:14px;
-            border-radius:5px;
+
 
         }
 
@@ -32,7 +32,7 @@
             margin:16px 14px;
             width:75px;
             height:28px;
-            background-color:#3a3f48;
+            background-color:#fe6000;
             border:0px;
             color:#ffffff;
             border-radius:5px;
@@ -52,15 +52,19 @@
         }
 
         #book-placeholder .info-container{
-
+            display: block;
+            height: 100px;
         }
 
         #book-placeholder #swiper{
             /*display:inline-block;*/
             /*margin:0 auto;*/
+            color:#999999;
             text-align:center;
         }
-
+        a:focus{
+            text-decoration:none;
+        }
         #book-placeholder .info-container figure{
             display:inline-block;
 
@@ -101,7 +105,6 @@
             font-size:11px;
             color:#999999;
             line-height:14px;
-            margin-bottom:35px;
         }
 
         h4{
@@ -111,13 +114,13 @@
             font-size:14px;
             font-weight:normal;
             line-height:34px;
-            color:#4e86e2;
+            color:#fe6000;
             display:inline-block;
-            border-bottom:2px solid #4e86e2;
+            border-bottom:2px solid #fe6000;
         }
 
         #excerpt-placeholder{
-            margin-bottom:40px;
+            margin-bottom:60px;
             background-color:#ffffff;
             border-top:1px solid #dfdfdf;
 
@@ -149,13 +152,14 @@
         }
 
         .head-img{
-            display:inline-block;
-            width:29px;
-            height:29px;
-            overflow:hidden;
-            border:0px;
-            border-radius:15px;
-            float:left;
+            display: block;
+            width: 29px;
+            height: 29px;
+            overflow: hidden;
+            border: 0px;
+            border-radius: 15px;
+            float: left;
+            margin-right: 7px;
         }
 
         .head-img img{
@@ -166,21 +170,21 @@
         }
 
         .excerpt-author{
-            width:200px;
-            margin-left:7px;
-            display:inline-block;
-            font-size:12px;
-            height:12px;
-            margin-bottom:4px;
-            color:#131313;
+            width: 200px;
+            display: block;
+            font-size: 12px;
+            height: 12px;
+            margin-bottom: 4px;
+            color: #131313;
+            line-height: 12px;
         }
 
         .create-date{
-            margin-left:7px;
-            display:inline-block;
-            height:10px;
-            font-size:10px;
-            color:#999999;
+            display: block;
+            height: 10px;
+            font-size: 10px;
+            color: #999999;
+            margin-bottom: 18px;
         }
 
         #open-app-container{
@@ -189,7 +193,7 @@
             width:100%;
             z-index:9;
             height:57px;
-
+            background-color: #f3f3f3;
         }
 
         #open-app-container a{
@@ -200,11 +204,14 @@
             font-size:13px;
             margin:13px auto;
             border-radius:16px;
-            background-color:#4e86e2;
+            background-color:#fe6000;
             color:#ffffff;
 
         }
     </style>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="./lib/js/wxshare.js"></script>
+    <script src="./lib/js/download.js"></script>
     <script>
         Date.prototype.Format = function (fmt){
             var o = {
@@ -231,12 +238,12 @@
             return null;
         }
         var bid = getUrlParameter('bookid');
-        var sid = getUrlParameter('sharereadid');
+        var sid = getUrlParameter('shreadid');
     </script>
 </head>
 <body>
 
-<div class=" download-container"><img src="./lib/images/logo.jpg" alt=""><span>漾</span><input type="button" value="点击下载"></div>
+<div class=" download-container"><img src="./lib/images/logo.png" alt=""><span>有漾儿阅读</span><input id='download-btn' type="button" value="点击下载"></div>
 <div id="book-placeholder" class="container">
     <div class="info-container">
         <figure><img id="book-img"></figure>
@@ -245,13 +252,12 @@
 
     </div>
     <label for="synopsis">简介</label>
-    <p id="synopsis" class="custom-hidden">SpaceX的行动任务控制中心，马斯克和米勒在此全程监控火箭的发射过程。
-                                           SpaceX在洛杉矶郊区建立了一座真正的火箭工厂，成功打造出“猎鹰1号”火箭。</p>
+    <p id="synopsis" class="custom-hidden"></p>
 
     <p class="text-center" style="margin:0;"><a id="swiper" href="javascript:void(0);" style="">展开</a></p>
 </div>
 <div id="excerpt-placeholder">
-    <h4>全部摘</h4>
+    <h4>全部</h4>
     <ul id="excerpt-list" class="excerpt-list  list-unstyled">
         <li class="container">
             <div class=""><span class="head-img"><img src="" alt=""></span><span
@@ -261,7 +267,7 @@
 
     </ul>
 </div>
-<div id="open-app-container" class="text-center"><a id="openApp" href="javascript:void(0);">进入漾,查看更多</a></div>
+<div id="open-app-container" class="text-center"><a id="openApp" href="javascript:void(0);">有漾儿阅读，查看更多</a></div>
 
 <script src="./lib/js/jquery-1.12.3.min.js"></script>
 <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
@@ -271,16 +277,16 @@
             var $t = $('#synopsis');
             if ($t.hasClass('custom-hidden')) {
                 $t.removeClass('custom-hidden');
-                $(this).html('点击闭合');
+                $(this).html('闭合');
             } else {
                 $t.addClass('custom-hidden');
-                $(this).html('点击展开');
+                $(this).html('展开');
             }
 
         });
         var data = {body:{bid:bid , sid:sid}};
         data = JSON.stringify(data);
-        var requestUrl = 'http://10.31.8.168:8084';
+        var requestUrl = 'http://rdappsrv.yunpub.cn';
         //bookid:6582
         //excerptid:163
 
@@ -304,13 +310,14 @@
             if (d.allExcerpt) {
                 formatExcerptData(d.allExcerpt)
             }
+            formatWXShareData(d)
         }
 
         function formatExcerptData(l){
             var tmplHtml = '';
             for (var i = 0 ; i < l.length ; i++) {
                 tmplHtml += ' <li class="container"><div><span class="head-img">' +
-                        '<img src="' + l[i].authorPhoto + '" alt=""></span>' +
+                        '<img src="' +decodeURIComponent(l[i].authorPhoto) + '" alt="" onerror="javascript:this.src=\'./lib/images/noheadimg.png\'"></span>' +
                         '<span class="excerpt-author ">' + l[i].authorName + '</span>' +
                         '<span class="create-date">' + formatDate(l[i].time) + '</span></div>' +
                         '<p class="excerpt-content ">' + l[i].content + '</p>' +
@@ -321,10 +328,21 @@
             }
             $('#excerpt-list').html(tmplHtml);
         }
+        function formatWXShareData(d){
+            var data = {};
+            data.title = d.bookName;
+            data.imgUrl = decodeURIComponent(d.bookImage);
+            data.desc = d.summary;
+            var queryIndex = location.href.indexOf('?');
+            data.link = location.href.substr(0,queryIndex) + '?bookid=' + bid + (!!sid ? '&shreadid=' + sid : '');
+            initWXShare(data);
+        }
+
         $('#openApp').on('click',openApp);
         function openApp(){
-            location.href="Inner://yunpub.com/open?bookid="+bid;
+            location.href="inner://yunpub.com/open?bookid="+bid;
         }
+        $('#download-btn').on('click',download);
         function formatDate(longString){
             var timeStr = '';
             longString = parseInt(longString);
